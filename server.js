@@ -1,26 +1,12 @@
-const express = require('express');
-const mongoose =require('mongoose');
+const express = require ('express');
+
+
 const app = express();
+const connectDB =require('./database/db');
 
-
-//connect to database
-const connectDB = async () => {
-    try {
-      await mongoose.connect("mongodb://admin:admin@localhost:port/EcommerceMern?authSource=admin", {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    
-      });
-      console.log("connected to database success");
-
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  connectDB();
-
+connectDB();
 
 
 const port = process.env.PORT || 3000;
 
-app.listen(port,() =>console.log(`listening on port ${port}`));
+app.listen(port, ()=> console.log(`listening on port ${port}`));

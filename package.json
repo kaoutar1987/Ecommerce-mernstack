@@ -4,12 +4,11 @@
   "description": "Ecommerce using MERN Stack",
   "main": "server.js",
   "scripts": {
-   "start": "node server.js ",
-   "start-server":"nodemon server.js"
-   
+    "start": "node server.js ",
+    "start-server": "nodemon server.js"
   },
   "author": "kaoutar habach",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.12.2",
