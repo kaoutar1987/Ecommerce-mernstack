@@ -4,9 +4,9 @@ import isEmail from 'validator/lib/isEmail';
 import equals from 'validator/lib/equals';
 import { showErrorMsg, showSuccessMsg} from '../helpers/message';
 import { showLoading } from '../helpers/loading';
-
 import { Link } from 'react-router-dom';
 import './Signup.css';
+import { signup } from '../api/auth';
 
 
 const Signup = () =>{
@@ -17,7 +17,7 @@ const Signup = () =>{
         password2: 'abc1234',
         successMsg: false,
         errorMsg: false,
-        loading: true,
+        loading: false,
     });
     const {
         username,
@@ -64,15 +64,28 @@ const Signup = () =>{
                 ...formData,
                 errorMsg: 'Passwords do not match',
             });
-        }else{
-            //success
-            setFormData({
-                ...formData,
-                successMsg:'validation success'
+        } else {
+            const { username, email, password } = formData;
+            const data = { username, email, password };
 
-            })
-        }
-        
+            setFormData({ ...formData, loading: true });
+            signup(data)
+                  .then(response =>{
+                      console.log('Axios signup success: ',response)
+                      setFormData({
+                        username: '',
+                        email: '',
+                        password: '',
+                        password2: '',
+                        loading: false,
+                        successMsg: response.data.successMessage,
+                      })
+                  })
+                  .catch(err =>{
+                      console.log('Axios sigunp error', err)
+                      setFormData({...formData, loading:false})
+                  })
+        }    
     }
 
     /****************************
